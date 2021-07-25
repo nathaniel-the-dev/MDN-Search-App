@@ -2,6 +2,7 @@
 	"name": "search-app",
 	"version": "0.1.1",
 	"private": true,
+	"main": "background.js",
 	"scripts": {
 		"serve": "vue-cli-service serve",
 		"build": "vue-cli-service build",
@@ -10,7 +11,6 @@
 		"postinstall": "electron-builder install-app-deps",
 		"postuninstall": "electron-builder install-app-deps"
 	},
-	"main": "background.js",
 	"dependencies": {
 		"core-js": "^3.6.5",
 		"dotenv": "^10.0.0",
@@ -27,5 +27,6 @@
 		"sass": "^1.26.5",
 		"sass-loader": "^8.0.2",
 		"vue-cli-plugin-electron-builder": "~2.1.1"
-	}
+	},
+	"license": "MIT"
 }
