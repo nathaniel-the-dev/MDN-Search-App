@@ -4,6 +4,8 @@ import path from 'path';
 import { app, protocol, BrowserWindow, globalShortcut } from 'electron';
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib';
 import installExtension, { VUEJS3_DEVTOOLS } from 'electron-devtools-installer';
+const updater = require('update-electron-app');
+updater({ updateInterval: '1 hour', logger: require('electron-log') });
 
 let mainWindow;
 const isDevelopment = process.env.NODE_ENV !== 'production';
