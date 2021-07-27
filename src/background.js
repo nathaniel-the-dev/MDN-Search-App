@@ -1,7 +1,7 @@
 'use strict';
 
 import path from 'path';
-import { app, protocol, BrowserWindow } from 'electron';
+import { app, protocol, BrowserWindow, globalShortcut } from 'electron';
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib';
 import installExtension, { VUEJS3_DEVTOOLS } from 'electron-devtools-installer';
 
@@ -11,12 +11,19 @@ const isDevelopment = process.env.NODE_ENV !== 'production';
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([{ scheme: 'app', privileges: { secure: true, standard: true } }]);
 
+function initializeShortcuts() {
+	// Toggle windows
+	globalShortcut.register('Alt+Shift+S', () => {
+		mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show();
+	});
+}
+
 async function createWindow() {
 	// Create the browser window.
 	mainWindow = new BrowserWindow({
 		backgroundColor: '#0000000',
-		width: 1280,
-		height: 720,
+		minWidth: 800,
+		minHeight: 600,
 		icon: path.join(__static, 'favicon.ico'),
 
 		show: false,
@@ -32,9 +39,6 @@ async function createWindow() {
 		},
 	});
 
-	// Show window when contents are loaded
-	mainWindow.on('ready-to-show', mainWindow.show);
-
 	// Load file
 	if (process.env.WEBPACK_DEV_SERVER_URL) {
 		// Load the url of the dev server if in development mode
@@ -44,6 +48,13 @@ async function createWindow() {
 		// Load the index.html when not in development
 		mainWindow.loadURL('app://./index.html');
 	}
+
+	// Init app
+	initializeShortcuts();
+
+	// Show window when contents are loaded
+	mainWindow.maximize();
+	mainWindow.on('ready-to-show', mainWindow.show);
 }
 
 // Quit when all windows are closed.
@@ -53,6 +64,10 @@ app.on('window-all-closed', () => {
 	if (process.platform !== 'darwin') {
 		app.quit();
 	}
+});
+
+app.on('will-quit', () => {
+	globalShortcut.unregisterAll();
 });
 
 app.on('activate', () => {

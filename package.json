@@ -1,6 +1,6 @@
 {
 	"name": "search-app",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"private": true,
 	"main": "background.js",
 	"scripts": {
@@ -16,6 +16,7 @@
 		"dotenv": "^10.0.0",
 		"electron": "^13.1.6",
 		"vue": "^3.0.0",
+		"vue-spinner": "^1.0.4",
 		"vuex": "^4.0.0-0"
 	},
 	"devDependencies": {

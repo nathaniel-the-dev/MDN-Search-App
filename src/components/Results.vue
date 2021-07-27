@@ -4,7 +4,7 @@
 		<img id="loading__img" src="https://media.tenor.com/images/a742721ea2075bc3956a2ff62c9bfeef/tenor.gif" alt="Loading Buffering GIF - Loading Buffering Spinning GIFs" v-if="loading" />
 
 		<div class="results__container" :class="theme" v-if="searchResults.length">
-			<h2 id="results__heading">Results for "{{ query }}"</h2>
+			<h2 id="results__heading">Results for "{{ searchQuery }}"</h2>
 
 			<ul class="results__list" ref="resultsList" v-show="!loading">
 				<li class="result" v-for="(result, i) in searchResults" :key="i">
@@ -23,7 +23,6 @@
 
 	export default {
 		name: 'Results',
-		props: ['query'],
 
 		data() {
 			return {
@@ -31,7 +30,7 @@
 			};
 		},
 
-		computed: { ...mapState(['searchResults', 'loading']), ...mapGetters(['maxNumOfPages']) },
+		computed: { ...mapState(['searchQuery', 'searchResults', 'loading']), ...mapGetters(['maxNumOfPages']) },
 
 		methods: {
 			// Helpers
@@ -43,6 +42,12 @@
 				const [_, summary] = htmlContent.split(' ... ');
 
 				return summary;
+			},
+		},
+
+		watch: {
+			loading() {
+				if (this.$refs.resultsList) this.$refs.resultsList.scrollTop = 0;
 			},
 		},
 	};
@@ -58,14 +63,25 @@
 		position: absolute;
 		inset: 50%;
 		transform: translate(-50%, -50%);
+
+		opacity: 0;
+
+		animation: showSpinner 0.2s linear forwards;
+		animation-delay: 0.5s;
+	}
+
+	@keyframes showSpinner {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
 	}
 
 	.results__section {
 		background: hsl(0, 0%, 95%);
-	}
-
-	.results__container {
-		min-height: 100%;
+		height: 100%;
 	}
 
 	#results__heading {
@@ -75,6 +91,8 @@
 	}
 
 	.results__list {
+		border: 1px solid black;
+
 		margin: 0;
 		padding: 15px 0 0 0;
 
@@ -97,7 +115,8 @@
 			}
 
 			.result__summary {
-				padding: 0 12rem;
+				margin: 0.5rem 0 1rem;
+				padding: 0 6rem;
 			}
 		}
 

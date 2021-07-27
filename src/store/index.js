@@ -13,17 +13,19 @@ async function getData(url) {
 
 function handleErrors(state, error) {
 	// Rollback changes
-	state.commit('updateSearchResults', []);
+	state.commit('updateSearchResults', { results: [], totalResults: 0, isNew: true });
 
-	console.error('💥Error💥');
-	console.error(error);
+	console.error(`💥Error💥:${error.message}`);
 }
 
 export default createStore({
 	state: {
+		searchQuery: '',
+
 		searchResults: [],
 		numOfResults: 0,
 		page: 0,
+
 		loading: true,
 	},
 
@@ -35,6 +37,10 @@ export default createStore({
 	},
 
 	mutations: {
+		setSearchQuery(state, query) {
+			state.searchQuery = query;
+		},
+
 		updateSearchResults(state, { results, totalResults, isNew }) {
 			state.searchResults = results;
 			state.numOfResults = +totalResults;
