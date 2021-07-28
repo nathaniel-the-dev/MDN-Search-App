@@ -4,11 +4,13 @@ import path from 'path';
 import { app, protocol, BrowserWindow, globalShortcut } from 'electron';
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib';
 import installExtension, { VUEJS3_DEVTOOLS } from 'electron-devtools-installer';
-const updater = require('update-electron-app');
-updater({ updateInterval: '1 hour', logger: require('electron-log') });
 
 let mainWindow;
 const isDevelopment = process.env.NODE_ENV !== 'production';
+
+// Check for updates
+const updater = require('update-electron-app');
+updater({ updateInterval: '1 hour', logger: require('electron-log') });
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([{ scheme: 'app', privileges: { secure: true, standard: true } }]);
@@ -51,7 +53,7 @@ async function createWindow() {
 		mainWindow.loadURL('app://./index.html');
 	}
 
-	// Init app
+	// Init shortcuts
 	initializeShortcuts();
 
 	// Show window when contents are loaded

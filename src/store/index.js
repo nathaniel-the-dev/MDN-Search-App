@@ -7,7 +7,6 @@ async function getData(url) {
 	const data = await res.json();
 	if (!data.items) throw new Error('No results found.');
 
-	console.log(data);
 	return data;
 }
 

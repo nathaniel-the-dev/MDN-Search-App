@@ -67,7 +67,7 @@
 		opacity: 0;
 
 		animation: showSpinner 0.2s linear forwards;
-		animation-delay: 0.5s;
+		animation-delay: 0.25s;
 	}
 
 	@keyframes showSpinner {
