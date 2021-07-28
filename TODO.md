@@ -1,4 +1,9 @@
 # Things To Do
+## **Features To Add**
+
+- Shortcuts (In progress)
+- Hiding and showing window (✔)
+
 
 ## **Known Issues**
 
@@ -11,7 +16,3 @@
 -   Spinner alone when fetching data (No background) (✔)
 -   Page control element not stretching to edge of the page (✔)
 
-## **Features To Add**
-
--   Shortcuts (In progress)
--   Hiding and showing window (✔)

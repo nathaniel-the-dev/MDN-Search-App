@@ -20,6 +20,10 @@ function initializeShortcuts() {
 	globalShortcut.register('Alt+Shift+S', () => {
 		mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show();
 	});
+
+	globalShortcut.register('Alt+Shift+C',()=>{
+		mainWindow.close();
+	})
 }
 
 async function createWindow() {
